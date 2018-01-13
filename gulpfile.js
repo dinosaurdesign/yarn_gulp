@@ -24,12 +24,12 @@ var path = {
     },
     dist: {
         folders:'dist',
-        php:    'dist/**/*.php',
-        html:   'dist/*.html',
-        css:    'dist/css/',
-        js:     'dist/js/*/*.*',
-        img:    'dist/img**/*.*',
-        fonts:  'dist/fonts**/*.*'
+        php:    'dist',
+        html:   'dist',
+        css:    'dist/css',
+        js:     'dist/js',
+        img:    'dist/img',
+        fonts:  'dist/fonts'
     }
 };
 // tasks
@@ -56,13 +56,12 @@ gulp.task('watch', ['browsersync', 'sass'], function () {
 
 gulp.task('img', function() {
     return gulp.src(path.src.img) // Берем все изображения из app
-        .pipe(cache(imagemin({ // С кешированием
-            // .pipe(imagemin({ // Сжимаем изображения без кеширования
+        .pipe(imagemin({
             interlaced: true,
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
-        }))/**/)
+        }))
         .pipe(gulp.dest(path.dist.img)); // Выгружаем на продакшен
 });
 gulp.task('clean', function() {
